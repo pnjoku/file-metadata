@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 var log = require('npmlog');
 var fs = require('fs');
 var multer = require('multer');
+var bodyParser = require('body-parser');
 
 
 var fileSchema = new Schema({
@@ -23,7 +24,10 @@ mongoose.Promise = global.Promise;
 mongoose.connect(mongouri);
 
 app.use(express.static(path.join(__dirname, 'templates')));
-//app.use(multer({dest:'./uploads/'}).single('singleInputFileName'));
+app.use(bodyParser.json());
+app.use(multer({
+  dest: path.join(__dirname, '/uploads/')
+}).any());
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -47,20 +51,16 @@ var multerUpload = multer({
 var uploadFile = multerUpload.single('userFile');
 
 app.post('/upload', function(req, res) {
-  console.log(req.file);
     uploadFile(req, res, function(err) {
       if (err) {
-        // An error occurred when uploading 
         log.error(err);
       }
-      // Everything went fine 
       var fileDetails = {
-        //name: req.file.originalname,
-        size: req.headers['content-length'],
-        date: new Date().toLocaleString(),
-        //file: req.data.name
+        name: req.files[0].originalname,
+        size: req.size,
+        date: new Date().toLocaleString()
       };
-      // save file to db
+
       var file = new File(fileDetails);
       file.save(function(err, file) {
         if (err) {
@@ -69,15 +69,15 @@ app.post('/upload', function(req, res) {
         }
         log.info('Saved', file);
       });
-      //var filePath = "./uploads/" + req.file.filename; 
-      //fs.unlinkSync(filePath);
+      var filePath = "./uploads/" + req.files[0].filename; 
+      fs.unlinkSync(filePath);
       res.send(fileDetails);
     });
   });
   
   
 app.get('/', function(req, res){ 
-    res.sendFile('./templates/index.html')
+    res.sendFile('./templates/index.html');
     });
 
 
