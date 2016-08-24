@@ -57,7 +57,7 @@ app.post('/upload', function(req, res) {
       }
       var fileDetails = {
         name: req.files[0].originalname,
-        size: req.size,
+        size: req.files[0].size,
         date: new Date().toLocaleString()
       };
 
