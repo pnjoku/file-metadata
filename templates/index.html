@@ -13,7 +13,7 @@
     <div>
         <form name="form">
              <input type="file" ngf-select ng-model="fileUpload" name="file" ngf-pattern="'*'"/><br/>
-             <button type="submit" ng-click="file.submit()">submit</button>
+             <button type="submit" ng-click="fileUpload.submit(fileUpload.file)">submit</button>
         </form>
     </div>
     <br/>

@@ -16,13 +16,13 @@ angular
       
      function fileController($http, Upload){
          var file = this;
-     this.fileData = "File Data will display here"
+     file.fileData = "File Data will display here"
      file.submit = submit;
      file.upload = upload;
       
-      function submit() {
-      if (this.file) {
-        this.upload(this.file)
+      function submit(file) {
+      if (file) {
+        file.upload(file)
         }
       }
        
