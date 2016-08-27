@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "description": "file uploader.",
   "main": "server.js",
-  "repository": "",
+  "scripts": {
+  "start": "node server.js"
+  },
+  "repository": "https://github.com/pnjoku/file-metadata",
   "author": "Prince Njoku",
   "dependencies": {
     "dotenv": "^1.2.0",
