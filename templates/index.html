@@ -12,12 +12,14 @@
   <div ng-controller="fileCtrl as fileUpload">
     <div>
         <form name="form">
-             <input type="file" ngf-select ng-model="fileUpload" name="file" ngf-pattern="'*'"/><br/>
+             <input type="file" ngf-select ng-model="fileUpload.file" name="file" ngf-pattern="'*'"/><br/>
              <button type="submit" ng-click="fileUpload.submit(fileUpload.file)">submit</button>
         </form>
     </div>
     <br/>
     <p>
+        Upload Progress: {{fileUpload.uploadProgress}}
+        </br>
         Data: {{fileUpload.fileData}}
     </p>
   </div>

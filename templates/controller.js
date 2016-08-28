@@ -15,14 +15,14 @@ angular
       
       
      function fileController($http, Upload){
-         var file = this;
-     file.fileData = "File Data will display here"
-     file.submit = submit;
-     file.upload = upload;
+         var fileForm = this
+     fileForm.fileData = "File Data will display here"
+     fileForm.submit = submit
+     fileForm.upload = upload
       
       function submit(file) {
       if (file) {
-        file.upload(file)
+        fileForm.upload(file)
         }
       }
        
@@ -32,11 +32,11 @@ angular
             data: {file: file }
         }).then(function (resp) {
             //console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data)
-            file.fileData = JSON.stringify(resp.data)
+            fileForm.fileData = JSON.stringify(resp.data)
         }, function (resp) {
             //console.log('Error status: ' + resp.status)
         }, function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
+            fileForm.uploadProgress = ''+parseInt(100.0 * evt.loaded / evt.total)+'%'
             //console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name)
         })
       }
