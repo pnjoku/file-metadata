@@ -30,8 +30,8 @@ app.use(multer({
 }).any())
 
 let storage = multer.diskStorage({
-  destination (req, file, cb) { cb(null, 'uploads/') },
-  filename (req, file, cb) {
+  destination: (req, file, cb) => { cb(null, 'uploads/') },
+  filename: (req, file, cb) => {
     let getFileExt = (fileName) => {
       let fileExt = fileName.split(".")
       if (fileExt.length === 1 || (fileExt[0] === "" && fileExt.length === 2)) {
@@ -49,8 +49,9 @@ let multerUpload = multer({
 let uploadFile = multerUpload.single('userFile')
 
 app.post('/upload', (req, res) => {
+  debugger;
     uploadFile(req, res, (err) => {
-    if (err){ 
+    if (err){
      log.error(err)
     }
       let fileDetails = {
@@ -72,8 +73,8 @@ app.post('/upload', (req, res) => {
       res.send(fileDetails)
     })
   })
-  
-  
+
+
 app.get('/',(req, res) => res.sendFile('./templates/index.html'))
 
 
